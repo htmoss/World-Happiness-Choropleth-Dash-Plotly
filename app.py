@@ -43,14 +43,17 @@ def update_output(num_clicks, val_selected):
     if val_selected is None:
         raise PreventUpdate
     else:
-        df = px.data.gapminder().query("year=={}".format(val_selected))
+        # df = px.data.gapminder().query("year=={}".format(val_selected))
         # print(df[:3])
+        df = pd.read_csv("output.csv")
 
-        fig = px.choropleth(df, locations="iso_alpha",
-                            color="lifeExp",
-                            hover_name="country",
+        fig = px.choropleth(df, locations="Alpha-3 code",
+                            color="Score",
+                            hover_name="Country or region",
+                            hover_data={'Overall rank': True, 'Country or region': True, 'Score': True, 'GDP per capita': True, 'Social support': True,
+                                        'Healthy life expectancy': True, 'Freedom to make life choices': True, 'Generosity': True, 'Perceptions of corruption': True, 'Alpha-3 code': True},
                             projection='natural earth',
-                            title='Life Expectancy by Year',
+                            title='World Happiness Rating',
                             color_continuous_scale=px.colors.sequential.Plasma)
 
         fig.update_layout(title=dict(font=dict(size=28), x=0.5, xanchor='center'),
