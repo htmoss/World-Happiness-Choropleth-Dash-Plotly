@@ -22,8 +22,15 @@ app.layout = html.Div([
     ]),
 
     html.Div([
-        dcc.Input(id='input_state', type='number', inputMode='numeric', value=2007,
-                  max=2007, min=1952, step=5, required=True),
+        dcc.Dropdown(
+            id='dropdown_state',
+            options=[
+                {'label': 'World Happiness', 'value': 'Score'},
+                {'label': 'GDP per capita', 'value': 'GDP per capita'},
+                {'label': 'Social support', 'value': 'Social support'}
+            ],
+            value='Score'
+        ),
         html.Button(id='submit_button', n_clicks=0, children='Submit'),
         html.Div(id='output_state'),
     ], style={'text-align': 'center'}),
@@ -37,7 +44,7 @@ app.layout = html.Div([
     [Output('output_state', 'children'),
      Output(component_id='the_graph', component_property='figure')],
     [Input(component_id='submit_button', component_property='n_clicks')],
-    [State(component_id='input_state', component_property='value')]
+    [State(component_id='dropdown_state', component_property='value')]
 )
 def update_output(num_clicks, val_selected):
     if val_selected is None:
@@ -48,7 +55,7 @@ def update_output(num_clicks, val_selected):
         df = pd.read_csv("output.csv")
 
         fig = px.choropleth(df, locations="Alpha-3 code",
-                            color="Score",
+                            color=val_selected,
                             hover_name="Country or region",
                             hover_data={'Overall rank': True, 'Country or region': True, 'Score': True, 'GDP per capita': True, 'Social support': True,
                                         'Healthy life expectancy': True, 'Freedom to make life choices': True, 'Generosity': True, 'Perceptions of corruption': True, 'Alpha-3 code': True},
@@ -59,8 +66,7 @@ def update_output(num_clicks, val_selected):
         fig.update_layout(title=dict(font=dict(size=28), x=0.5, xanchor='center'),
                           margin=dict(l=60, r=60, t=50, b=50))
 
-        return ('The input value was "{}" and the button has been \
-                clicked {} times'.format(val_selected, num_clicks), fig)
+        return ('Current Map: {}'.format(val_selected), fig)
 
 
 if __name__ == '__main__':
