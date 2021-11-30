@@ -1,4 +1,4 @@
-# World Happiness Rating
+# World Happiness Rating Choropleth Visualization
 
 ## About this app
 
