@@ -38,7 +38,8 @@ Open a browser at http://127.0.0.1:8050
 
 ## Screenshots
 
-![world_happiness_picture.png](world_happiness_picture.png)
+![World Happiness](https://github.com/htmoss/World-Happiness-Choropleth-Dash-Plotly/blob/main/world_happiness_picture.PNG?raw=true)
+![Freedom to Make Choices](https://github.com/htmoss/World-Happiness-Choropleth-Dash-Plotly/blob/main/freedom_choices_picture.PNG?raw=true)
 
 ## Resources
 
