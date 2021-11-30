@@ -26,14 +26,23 @@ app.layout = html.Div([
             id='dropdown_state',
             options=[
                 {'label': 'World Happiness', 'value': 'Score'},
-                {'label': 'GDP per capita', 'value': 'GDP per capita'},
-                {'label': 'Social support', 'value': 'Social support'}
+                {'label': 'GDP Per Capita', 'value': 'GDP per capita'},
+                {'label': 'Social Support', 'value': 'Social support'},
+                {'label': 'Healthy Life Expectancy',
+                    'value': 'Healthy life expectancy'},
+                {'label': 'Freedom to Make Life Choices',
+                    'value': 'Freedom to make life choices'},
+                {'label': 'Generosity', 'value': 'Generosity'},
+                {'label': 'Perceptions of Corruption',
+                    'value': 'Perceptions of corruption'},
             ],
-            value='Score'
+            value='Score',
+            style={'width': '50%', 'margin-left': '25%', 'margin-right': '25%'}
         ),
-        html.Button(id='submit_button', n_clicks=0, children='Submit'),
+        html.Button(id='submit_button', n_clicks=0, children='Update', style={
+                    'margin-top': '8px', 'margin-bottom': '8px'}),
         html.Div(id='output_state'),
-    ], style={'text-align': 'center'}),
+    ], style={'text-align': 'center', 'align-items': 'center', 'justify-content': 'center'}),
 
 ])
 
@@ -50,9 +59,18 @@ def update_output(num_clicks, val_selected):
     if val_selected is None:
         raise PreventUpdate
     else:
-        # df = px.data.gapminder().query("year=={}".format(val_selected))
-        # print(df[:3])
         df = pd.read_csv("output.csv")
+
+        # update range on side of graph according to each column
+        key_range = [0, 2]
+        if val_selected == "Score":
+            key_range = [3, 8]
+        elif val_selected == "Healthy life expectancy":
+            key_range = [0, 1.1]
+        elif val_selected == 'Freedom to make life choices':
+            key_range = [0, 0.7]
+        elif val_selected == 'Generosity' or val_selected == 'Perceptions of corruption':
+            key_range = [0, 0.5]
 
         fig = px.choropleth(df, locations="Alpha-3 code",
                             color=val_selected,
@@ -61,7 +79,8 @@ def update_output(num_clicks, val_selected):
                                         'Healthy life expectancy': True, 'Freedom to make life choices': True, 'Generosity': True, 'Perceptions of corruption': True, 'Alpha-3 code': True},
                             projection='natural earth',
                             title='World Happiness Rating',
-                            color_continuous_scale=px.colors.sequential.Plasma)
+                            color_continuous_scale=px.colors.sequential.Plasma,
+                            range_color=key_range)
 
         fig.update_layout(title=dict(font=dict(size=28), x=0.5, xanchor='center'),
                           margin=dict(l=60, r=60, t=50, b=50))
