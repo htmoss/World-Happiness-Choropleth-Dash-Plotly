@@ -1,9 +1,9 @@
-# Dash Drug Discovery
+# World Happiness Rating
 
 ## About this app
 
 
-This demo allows users to compare and explore different drug properties by selecting on the dropdown menu.
+This demo allows users to compare and explore different aspects of the 2019 world happiness rating data by selecting on the dropdown menu.
 
 
 Original repo: [plotly/dash-drug-discovery-demo](https://github.com/plotly/dash-drug-discovery-demo)
@@ -38,7 +38,7 @@ Open a browser at http://127.0.0.1:8050
 
 ## Screenshots
 
-![drug_discovery.png](drug_discovery.png)
+![world_happiness_picture.png](world_happiness_picture.png)
 
 ## Resources
 

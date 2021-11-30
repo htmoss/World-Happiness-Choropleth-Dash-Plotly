@@ -59,7 +59,7 @@ def update_output(num_clicks, val_selected):
     if val_selected is None:
         raise PreventUpdate
     else:
-        df = pd.read_csv("output.csv")
+        df = pd.read_csv("whr2019.csv")
 
         # update range on side of graph according to each column
         key_range = [0, 2]
